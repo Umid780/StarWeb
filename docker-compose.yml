@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  web:
+    build: ./django_project
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./django_project:/app
+  search:
+    build: ./search_service
+    ports:
+      - '5001:5001'
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: inamarka
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
